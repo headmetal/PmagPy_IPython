@@ -429,7 +429,7 @@ def equi(m, centerlon, centerlat, radius, color):
     X,Y = m(X,Y)
     plt.plot(X,Y,color)
 
-def poleplot(mapname,plong,plat,A95,label='',color='k',marker='o',legend='no'):
+def poleplot(mapname,plong,plat,A95,cmap,vmin,vmax,label='',color='k',marker='o',markersize='20',legend='no'):
     """
     This function plots a paleomagnetic pole and A95 error ellipse on whatever 
     current map projection has been set using the basemap plotting library.
@@ -450,7 +450,7 @@ def poleplot(mapname,plong,plat,A95,label='',color='k',marker='o',legend='no'):
     """
     centerlon, centerlat = mapname(plong,plat)
     A95_km=A95*111.32
-    mapname.scatter(centerlon,centerlat,20,marker=marker,color=color,label=label,zorder=101)
+    mapname.scatter(centerlon,centerlat,c=cmap,vmin=vmin,vmax=vmax,s=markersize,marker=marker,color=color,label=label,zorder=101)
     equi(mapname, plong, plat, A95_km,color)
     if legend=='yes':
         pylab.legend(loc=2)
