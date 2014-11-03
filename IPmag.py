@@ -409,7 +409,7 @@ def shoot(lon, lat, azimuth, maxdist=None):
  
     return (glon2, glat2, baz)
 
-def equi(m, centerlon, centerlat, radius, color):
+def equi(m, centerlon, centerlat, radius, color, alpha='1.0'):
     """
     This function enables A95 error ellipses to be drawn in basemap around paleomagnetic poles
     in conjunction with shoot
@@ -427,9 +427,9 @@ def equi(m, centerlon, centerlat, radius, color):
     Y.append(Y[0])
  
     X,Y = m(X,Y)
-    plt.plot(X,Y,color)
+    plt.plot(X,Y,color,alpha=alpha)
 
-def poleplot(mapname,plong,plat,A95,cmap,vmin,vmax,label='',color='k',marker='o',markersize='20',legend='no'):
+def poleplot(mapname,plong,plat,A95,cmap,vmin,vmax,label='',color='k',marker='o',markersize='20',alpha='1.0',legend='no'):
     """
     This function plots a paleomagnetic pole and A95 error ellipse on whatever 
     current map projection has been set using the basemap plotting library.
@@ -450,8 +450,8 @@ def poleplot(mapname,plong,plat,A95,cmap,vmin,vmax,label='',color='k',marker='o'
     """
     centerlon, centerlat = mapname(plong,plat)
     A95_km=A95*111.32
-    mapname.scatter(centerlon,centerlat,c=cmap,vmin=vmin,vmax=vmax,s=markersize,marker=marker,color=color,label=label,zorder=101)
-    equi(mapname, plong, plat, A95_km,color)
+    mapname.scatter(centerlon,centerlat,c=cmap,vmin=vmin,vmax=vmax,s=markersize,marker=marker,color=color,alpha=alpha,label=label,zorder=101)
+    equi(mapname, plong, plat, A95_km, color, alpha)
     if legend=='yes':
         pylab.legend(loc=2)
 
