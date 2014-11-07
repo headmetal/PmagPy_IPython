@@ -421,12 +421,37 @@ def equi(m, centerlon, centerlat, radius, color, alpha='1.0'):
     Y = []
     for azimuth in range(0, 360):
         glon2, glat2, baz = shoot(glon1, glat1, azimuth, radius)
+
+        if glon2 >= 179:
+            #glon2 = -glon2 + 1
+            glon2 = 178
+
+        #elif glon2 <= -179:
+            #glon2 = abs(glon2) - 1
+
+
+        # if glon1 >= 89:
+        #     glon1 = -glon1
+
+        # elif glon1 <= -89:
+        #     glon1 = abs(glon1)
+
+
         X.append(glon2)
         Y.append(glat2)
     X.append(X[0])
     Y.append(Y[0])
- 
+
+    # print "Xmax: " + str(np.max(X)) + " , Xmin: " + str(np.min(X))
+    # print "Ymax: " + str(np.max(Y)) + " , Ymin: " + str(np.min(Y))
+    # print " "
+
+    # print X
+    # print " "
+    #print Y
+
     X,Y = m(X,Y)
+
     plt.plot(X,Y,color,alpha=alpha)
 
 def poleplot(mapname,plong,plat,A95,cmap,vmin,vmax,label='',color='k',marker='o',markersize='20',alpha='1.0',legend='no'):
